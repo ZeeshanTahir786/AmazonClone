@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import FontAwsome from 'react-native-vector-icons/FontAwesome';
@@ -14,8 +14,13 @@ interface ProductItemProps {
     oldPrice?: number;
   };
 }
+const MAX_RATING = 5;
+const MIN_RATING = 1;
 
 const ProductItem = ({item}: ProductItemProps) => {
+  const [rating] = useState<number>(
+    Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING,
+  );
   return (
     <View style={styles.root}>
       {/* Render Product Component */}
@@ -30,36 +35,17 @@ const ProductItem = ({item}: ProductItemProps) => {
           {item.title}
         </Text>
         <View style={styles.ratingContainer}>
-          <FontAwsome
-            style={styles.star}
-            name="star"
-            size={18}
-            color={'#e47911'}
-          />
-          <FontAwsome
-            style={styles.star}
-            name="star"
-            size={18}
-            color={'#e47911'}
-          />
-          <FontAwsome
-            style={styles.star}
-            name="star"
-            size={18}
-            color={'#e47911'}
-          />
-          <FontAwsome
-            style={styles.star}
-            name="star-half-full"
-            size={18}
-            color={'#e47911'}
-          />
-          <FontAwsome
-            style={styles.star}
-            name="star-o"
-            size={18}
-            color={'#e47911'}
-          />
+          {Array(rating)
+            .fill(null)
+            .map((_, ind) => (
+              <FontAwsome
+                key={ind}
+                style={styles.star}
+                name={ind < Math.floor(item.avgRating) ? 'star' : 'star-o'}
+                size={18}
+                color={'#e47911'}
+              />
+            ))}
           <Text>{item.ratings}</Text>
         </View>
         <Text style={styles.price}>
