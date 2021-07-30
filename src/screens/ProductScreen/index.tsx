@@ -5,6 +5,7 @@ import {Picker} from '@react-native-picker/picker';
 import QuantitySelector from '../../components/QuantitySelector';
 import Button from '../../components/Button';
 import ImageCarousel from '../../components/ImageCarousel';
+import {styles} from './style';
 
 const ProductScreen = () => {
   const [selectedValue, setSelectedValue] = useState(
@@ -42,24 +43,3 @@ const ProductScreen = () => {
 };
 
 export default ProductScreen;
-
-const styles = StyleSheet.create({
-  root: {
-    padding: 10,
-    backgroundColor: 'white',
-  },
-  oldPrice: {
-    fontSize: 12,
-    fontWeight: 'normal',
-    textDecorationLine: 'line-through',
-  },
-  price: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  description: {
-    marginVertical: 10,
-    lineHeight: 20,
-  },
-  title: {},
-});
