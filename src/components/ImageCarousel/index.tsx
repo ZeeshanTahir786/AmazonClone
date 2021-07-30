@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -11,9 +11,16 @@ import {
 interface ImageProp {
   Images: string[];
 }
+
 const ImageCarousel = ({Images}: ImageProp) => {
   const widthDimention = useWindowDimensions().width;
   const [avtiveIndex, setActiveIndex] = useState(0);
+
+  const onFlatListUpdate = useCallback(({viewableItems}) => {
+    if (viewableItems.length > 0) {
+      setActiveIndex(viewableItems[0].index || 0);
+    }
+  }, []);
   return (
     <View style={styles.root}>
       <FlatList
@@ -29,9 +36,10 @@ const ImageCarousel = ({Images}: ImageProp) => {
         snapToInterval={widthDimention - 20}
         snapToAlignment={'center'}
         decelerationRate={'fast'}
-        // viewabilityConfig={{
-        //   viewAreaCoveragePercentThreshold: 50,
-        // }}
+        viewabilityConfig={{
+          viewAreaCoveragePercentThreshold: 50,
+        }}
+        onViewableItemsChanged={onFlatListUpdate}
       />
       <View style={styles.dots}>
         {Images.map((image, ind) => (

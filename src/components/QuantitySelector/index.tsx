@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 
-interface QuantitySelector {
+interface QuantitySelectorProp {
   quantity: string;
   setQuantity: () => {};
 }
