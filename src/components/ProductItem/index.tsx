@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import FontAwsome from 'react-native-vector-icons/FontAwesome';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 interface ProductItemProps {
   item: {
@@ -18,11 +20,15 @@ const MAX_RATING = 5;
 const MIN_RATING = 1;
 
 const ProductItem = ({item}: ProductItemProps) => {
+  const navigation = useNavigation();
   const [rating] = useState<number>(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING,
   );
+  const onPress = () => {
+    navigation.navigate('ProductScreen', {id: item.id});
+  };
   return (
-    <View style={styles.root}>
+    <TouchableOpacity activeOpacity={0.5} onPress={onPress} style={styles.root}>
       {/* Render Product Component */}
       <Image
         style={styles.image}
@@ -55,7 +61,7 @@ const ProductItem = ({item}: ProductItemProps) => {
           )}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
